@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainwindowrEXaTo.ui'
+## Form generated from reading UI file 'mainwindow_afterAcQsLp.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.3
 ##
@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1347, 840)
+        MainWindow.resize(1407, 840)
         font = QFont()
         font.setPointSize(12)
         MainWindow.setFont(font)
@@ -41,6 +41,7 @@ class Ui_MainWindow(object):
         self.line_9.setObjectName(u"line_9")
         self.line_9.setFrameShape(QFrame.HLine)
         self.line_9.setFrameShadow(QFrame.Sunken)
+        # self.line_9.setLineWidth(50)
 
         self.verticalLayout_3.addWidget(self.line_9)
 
@@ -54,7 +55,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.setContentsMargins(-1, 0, 0, -1)
         self.face_open_button = QPushButton(self.centralwidget)
         self.face_open_button.setObjectName(u"face_open_button")
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.face_open_button.sizePolicy().hasHeightForWidth())
@@ -132,8 +133,10 @@ class Ui_MainWindow(object):
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.t_1_faceimage.sizePolicy().hasHeightForWidth())
         self.t_1_faceimage.setSizePolicy(sizePolicy1)
-        self.t_1_faceimage.setMinimumSize(QSize(400, 250))
-        self.t_1_faceimage.setMaximumSize(QSize(600, 400))
+        self.t_1_faceimage.setMinimumSize(QSize(420, 250))
+        self.t_1_faceimage.setMaximumSize(QSize(590, 400))
+        self.t_1_faceimage.setAlignment(Qt.AlignCenter)
+        self.t_1_faceimage.setMargin(20)
 
         self.horizontalLayout_2.addWidget(self.t_1_faceimage)
 
@@ -141,6 +144,7 @@ class Ui_MainWindow(object):
         self.line_3.setObjectName(u"line_3")
         self.line_3.setFrameShape(QFrame.VLine)
         self.line_3.setFrameShadow(QFrame.Sunken)
+        
 
         self.horizontalLayout_2.addWidget(self.line_3)
 
@@ -148,8 +152,9 @@ class Ui_MainWindow(object):
         self.t_2_faceimage.setObjectName(u"t_2_faceimage")
         sizePolicy1.setHeightForWidth(self.t_2_faceimage.sizePolicy().hasHeightForWidth())
         self.t_2_faceimage.setSizePolicy(sizePolicy1)
-        self.t_2_faceimage.setMinimumSize(QSize(400, 250))
-        self.t_2_faceimage.setMaximumSize(QSize(600, 400))
+        self.t_2_faceimage.setMinimumSize(QSize(420, 250))
+        self.t_2_faceimage.setMaximumSize(QSize(590, 400))
+        self.t_2_faceimage.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_2.addWidget(self.t_2_faceimage)
 
@@ -157,6 +162,8 @@ class Ui_MainWindow(object):
         self.line_4.setObjectName(u"line_4")
         self.line_4.setFrameShape(QFrame.VLine)
         self.line_4.setFrameShadow(QFrame.Sunken)
+        # self.line_4.setLineWidth(50)
+        
 
         self.horizontalLayout_2.addWidget(self.line_4)
 
@@ -164,8 +171,10 @@ class Ui_MainWindow(object):
         self.t_3_faceimage.setObjectName(u"t_3_faceimage")
         sizePolicy1.setHeightForWidth(self.t_3_faceimage.sizePolicy().hasHeightForWidth())
         self.t_3_faceimage.setSizePolicy(sizePolicy1)
-        self.t_3_faceimage.setMinimumSize(QSize(400, 250))
-        self.t_3_faceimage.setMaximumSize(QSize(600, 400))
+        self.t_3_faceimage.setMinimumSize(QSize(420, 250))
+        self.t_3_faceimage.setMaximumSize(QSize(590, 400))
+        self.t_3_faceimage.setAlignment(Qt.AlignCenter)
+        self.t_3_faceimage.setMargin(20)
 
         self.horizontalLayout_2.addWidget(self.t_3_faceimage)
 
@@ -196,7 +205,7 @@ class Ui_MainWindow(object):
         self.body_open_button.setSizeIncrement(QSize(0, 0))
         self.body_open_button.setBaseSize(QSize(0, 0))
         self.body_open_button.setFont(font1)
-        # self.body_open_button.setStyleSheet(u"border-image:url(\"C/Users/USER/Desktop/pyqt5_design/images/open.png\");")
+        self.body_open_button.setStyleSheet(u"border-image:url(\"C/Users/USER/Desktop/pyqt5_design/images/open.png\");")
         self.body_open_button.setIconSize(QSize(50, 50))
         self.body_open_button.setCheckable(False)
         self.body_open_button.setAutoDefault(False)
@@ -253,8 +262,10 @@ class Ui_MainWindow(object):
         self.t_1_bodyimage.setObjectName(u"t_1_bodyimage")
         sizePolicy1.setHeightForWidth(self.t_1_bodyimage.sizePolicy().hasHeightForWidth())
         self.t_1_bodyimage.setSizePolicy(sizePolicy1)
-        self.t_1_bodyimage.setMinimumSize(QSize(400, 250))
-        self.t_1_bodyimage.setMaximumSize(QSize(600, 400))
+        self.t_1_bodyimage.setMinimumSize(QSize(420, 250))
+        self.t_1_bodyimage.setMaximumSize(QSize(590, 400))
+        self.t_1_bodyimage.setAlignment(Qt.AlignCenter)
+        self.t_1_bodyimage.setMargin(20)
 
         self.horizontalLayout_3.addWidget(self.t_1_bodyimage)
 
@@ -262,15 +273,16 @@ class Ui_MainWindow(object):
         self.line_5.setObjectName(u"line_5")
         self.line_5.setFrameShape(QFrame.VLine)
         self.line_5.setFrameShadow(QFrame.Sunken)
-
+        
         self.horizontalLayout_3.addWidget(self.line_5)
 
         self.t_2_bodyimage = QLabel(self.centralwidget)
         self.t_2_bodyimage.setObjectName(u"t_2_bodyimage")
         sizePolicy1.setHeightForWidth(self.t_2_bodyimage.sizePolicy().hasHeightForWidth())
         self.t_2_bodyimage.setSizePolicy(sizePolicy1)
-        self.t_2_bodyimage.setMinimumSize(QSize(400, 250))
-        self.t_2_bodyimage.setMaximumSize(QSize(600, 400))
+        self.t_2_bodyimage.setMinimumSize(QSize(420, 250))
+        self.t_2_bodyimage.setMaximumSize(QSize(590, 400))
+        self.t_2_bodyimage.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_3.addWidget(self.t_2_bodyimage)
 
@@ -278,30 +290,33 @@ class Ui_MainWindow(object):
         self.line_6.setObjectName(u"line_6")
         self.line_6.setFrameShape(QFrame.VLine)
         self.line_6.setFrameShadow(QFrame.Sunken)
-
+        
         self.horizontalLayout_3.addWidget(self.line_6)
 
         self.t_3_bodyimage = QLabel(self.centralwidget)
         self.t_3_bodyimage.setObjectName(u"t_3_bodyimage")
         sizePolicy1.setHeightForWidth(self.t_3_bodyimage.sizePolicy().hasHeightForWidth())
         self.t_3_bodyimage.setSizePolicy(sizePolicy1)
-        self.t_3_bodyimage.setMinimumSize(QSize(400, 250))
-        self.t_3_bodyimage.setMaximumSize(QSize(600, 400))
+        self.t_3_bodyimage.setMinimumSize(QSize(420, 250))
+        self.t_3_bodyimage.setMaximumSize(QSize(590, 400))
+        self.t_3_bodyimage.setAlignment(Qt.AlignCenter)
+        self.t_3_bodyimage.setMargin(20)
 
         self.horizontalLayout_3.addWidget(self.t_3_bodyimage)
-
+        
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_3)
 
-        #스크롤바 구현
         self.scrollbar = QScrollBar(Qt.Orientation.Horizontal, self)
         self.verticalLayout_3.addWidget(self.scrollbar)
         self.scrollbar.setMaximum(0)
+        
 
         self.line_2 = QFrame(self.centralwidget)
         self.line_2.setObjectName(u"line_2")
         self.line_2.setFrameShape(QFrame.HLine)
         self.line_2.setFrameShadow(QFrame.Sunken)
+        
 
         self.verticalLayout_3.addWidget(self.line_2)
 
@@ -311,12 +326,15 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setSizeConstraint(QLayout.SetNoConstraint)
         self.pushButton = QPushButton(self.centralwidget)
         self.pushButton.setObjectName(u"pushButton")
-        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
+        self.pushButton.setSizePolicy(sizePolicy2)
         self.pushButton.setMinimumSize(QSize(80, 80))
-        self.pushButton.setMaximumSize(QSize(110, 80))
+        self.pushButton.setMaximumSize(QSize(80, 80))
         font3 = QFont()
-        font3.setPointSize(18)
+        font3.setPointSize(14)
         font3.setBold(True)
         self.pushButton.setFont(font3)
 
@@ -324,21 +342,21 @@ class Ui_MainWindow(object):
 
         self.pushButton_2 = QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        sizePolicy.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy)
+        sizePolicy2.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
+        self.pushButton_2.setSizePolicy(sizePolicy2)
         self.pushButton_2.setMinimumSize(QSize(80, 80))
-        self.pushButton_2.setMaximumSize(QSize(110, 80))
+        self.pushButton_2.setMaximumSize(QSize(80, 80))
         self.pushButton_2.setFont(font2)
 
         self.horizontalLayout_6.addWidget(self.pushButton_2)
 
         self.groupBox = QGroupBox(self.centralwidget)
         self.groupBox.setObjectName(u"groupBox")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
-        self.groupBox.setSizePolicy(sizePolicy2)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
+        self.groupBox.setSizePolicy(sizePolicy3)
         self.groupBox.setMinimumSize(QSize(1040, 0))
         self.groupBox.setMaximumSize(QSize(16777215, 80))
         self.horizontalLayout_5 = QHBoxLayout(self.groupBox)
@@ -354,51 +372,51 @@ class Ui_MainWindow(object):
 
         self.radioButton_2 = QRadioButton(self.groupBox)
         self.radioButton_2.setObjectName(u"radioButton_2")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.radioButton_2.sizePolicy().hasHeightForWidth())
-        self.radioButton_2.setSizePolicy(sizePolicy3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.radioButton_2.sizePolicy().hasHeightForWidth())
+        self.radioButton_2.setSizePolicy(sizePolicy4)
         self.radioButton_2.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout.addWidget(self.radioButton_2)
 
         self.radioButton_3 = QRadioButton(self.groupBox)
         self.radioButton_3.setObjectName(u"radioButton_3")
-        sizePolicy3.setHeightForWidth(self.radioButton_3.sizePolicy().hasHeightForWidth())
-        self.radioButton_3.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.radioButton_3.sizePolicy().hasHeightForWidth())
+        self.radioButton_3.setSizePolicy(sizePolicy4)
         self.radioButton_3.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout.addWidget(self.radioButton_3)
 
         self.radioButton_4 = QRadioButton(self.groupBox)
         self.radioButton_4.setObjectName(u"radioButton_4")
-        sizePolicy3.setHeightForWidth(self.radioButton_4.sizePolicy().hasHeightForWidth())
-        self.radioButton_4.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.radioButton_4.sizePolicy().hasHeightForWidth())
+        self.radioButton_4.setSizePolicy(sizePolicy4)
         self.radioButton_4.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout.addWidget(self.radioButton_4)
 
         self.radioButton_5 = QRadioButton(self.groupBox)
         self.radioButton_5.setObjectName(u"radioButton_5")
-        sizePolicy3.setHeightForWidth(self.radioButton_5.sizePolicy().hasHeightForWidth())
-        self.radioButton_5.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.radioButton_5.sizePolicy().hasHeightForWidth())
+        self.radioButton_5.setSizePolicy(sizePolicy4)
         self.radioButton_5.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout.addWidget(self.radioButton_5)
 
         self.radioButton_6 = QRadioButton(self.groupBox)
         self.radioButton_6.setObjectName(u"radioButton_6")
-        sizePolicy3.setHeightForWidth(self.radioButton_6.sizePolicy().hasHeightForWidth())
-        self.radioButton_6.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.radioButton_6.sizePolicy().hasHeightForWidth())
+        self.radioButton_6.setSizePolicy(sizePolicy4)
         self.radioButton_6.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout.addWidget(self.radioButton_6)
 
         self.radioButton_7 = QRadioButton(self.groupBox)
         self.radioButton_7.setObjectName(u"radioButton_7")
-        sizePolicy3.setHeightForWidth(self.radioButton_7.sizePolicy().hasHeightForWidth())
-        self.radioButton_7.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.radioButton_7.sizePolicy().hasHeightForWidth())
+        self.radioButton_7.setSizePolicy(sizePolicy4)
         self.radioButton_7.setMaximumSize(QSize(16777215, 16777215))
 
         self.horizontalLayout.addWidget(self.radioButton_7)
@@ -411,10 +429,10 @@ class Ui_MainWindow(object):
 
         self.pushButton_3 = QPushButton(self.centralwidget)
         self.pushButton_3.setObjectName(u"pushButton_3")
-        sizePolicy.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
-        self.pushButton_3.setSizePolicy(sizePolicy)
+        sizePolicy2.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
+        self.pushButton_3.setSizePolicy(sizePolicy2)
         self.pushButton_3.setMinimumSize(QSize(80, 80))
-        self.pushButton_3.setMaximumSize(QSize(110, 80))
+        self.pushButton_3.setMaximumSize(QSize(80, 80))
         self.pushButton_3.setFont(font2)
 
         self.horizontalLayout_6.addWidget(self.pushButton_3)
@@ -425,7 +443,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1347, 27))
+        self.menubar.setGeometry(QRect(0, 0, 1407, 27))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
         MainWindow.setMenuBar(self.menubar)
@@ -451,17 +469,17 @@ class Ui_MainWindow(object):
         self.face_DataAug_button.setText(QCoreApplication.translate("MainWindow", u"File List", None))
         self.face_Delete_button.setText(QCoreApplication.translate("MainWindow", u"Data\n"
 "Aug", None))
-        self.t_1_faceimage.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.t_2_faceimage.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.t_3_faceimage.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.t_1_faceimage.setText("")
+        self.t_2_faceimage.setText(QCoreApplication.translate("MainWindow", u"Open the Vedio File", None))
+        self.t_3_faceimage.setText("")
         self.body_open_button.setText(QCoreApplication.translate("MainWindow", u"Open", None))
         self.body_delete_button.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
         self.body_FileList_button.setText(QCoreApplication.translate("MainWindow", u"File List", None))
         self.body_DataAug_button.setText(QCoreApplication.translate("MainWindow", u"Data\n"
 "Aug", None))
-        self.t_1_bodyimage.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.t_2_bodyimage.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.t_3_bodyimage.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.t_1_bodyimage.setText("")
+        self.t_2_bodyimage.setText(QCoreApplication.translate("MainWindow", u"Open the Vedio File", None))
+        self.t_3_bodyimage.setText("")
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Export", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Prev\n"
 "Image", None))

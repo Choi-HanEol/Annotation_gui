@@ -4,7 +4,7 @@ import os, glob
 from PySide6.QtWidgets import *
 # from PySide6 import uic
 # from ui_mainwindow import Ui_MainWindow
-from ui_mainwindow import Ui_MainWindow
+from ui_mainwindow_after import Ui_MainWindow
 from PySide6.QtGui import QPixmap
 
 from PySide6.QtCore import Qt
@@ -29,67 +29,28 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         # self.scrollbar.valueChanged.connect(self.changeImage)
 
         # self.loadImage(self.current_image_index)
-
+        self.line_5.setStyleSheet("background-color: red;")
         #open버튼 클릭 시
         self.face_open_button.clicked.connect(lambda: self.convertToImage('face'))
         self.body_open_button.clicked.connect(lambda: self.convertToImage('body'))
+    
         
-
-
-    def convertToImage(self, faceOrBody): #동영상 열어 이미지로 변환
-        global video_name
-        video_name = QFileDialog.getOpenFileName(self, 'Open File')
-        
-        cap = cv2.VideoCapture(video_name[0])
-        folder_path = os.path.dirname(video_name[0])+'/'+faceOrBody
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
-            print(f'{folder_path} 폴더가 생성되었습니다.')
-        else:
-            print(f'{folder_path} 폴더는 이미 존재합니다.')
-        # 프레임 수 초기화
-        frame_count = 0
-
-        while True:
-            # 프레임 읽기
-            ret, frame = cap.read()
-            
-            # 동영상 끝에 도달하면 종료
-            if not ret:
-                break
-            
-            # 이미지 파일로 저장
-            image_filename = f'frame_{frame_count:04d}.jpg'
-            cv2.imwrite(folder_path+'/'+image_filename, frame)
-        
-            # 다음 프레임으로 이동
-            frame_count += 1
-
-        if faceOrBody == 'face':
-            self.face_image_paths = glob.glob(os.path.join(folder_path, '*.jpg'))
-        elif faceOrBody == 'body':
-            self.body_image_paths = glob.glob(os.path.join(folder_path, '*.jpg'))
-        else:
-            print('faceOrBody 에러')
-        # 동영상 캡처 객체 해제
-        cap.release()
-        cv2.destroyAllWindows()
         # 스크롤바 구현
-        self.scrollbar.setMaximum(len(self.face_image_paths) - 1)
-        self.scrollbar.valueChanged.connect(self.changeImage)
         self.loadImage(self.current_image_index)
         
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_A: #스페이스바도 할 수 있으면 하자. 방향키 왼쪽
             if self.current_image_index > 0:
                 self.current_image_index -= 1
-                self.scrollbar.setValue(self.current_image_index)
+                
         elif event.key() == Qt.Key_D: #백스페이스바도 할 수 있으면 하자. 방향키 오른쪽
             if self.current_image_index < len(self.face_image_paths) - 1:
                 self.current_image_index += 1
-                self.scrollbar.setValue(self.current_image_index)
+                
 
     def loadImage(self, index):
+        self.body_image_paths = ['./images/image1.jpg', './images/image1.jpg', './images/image3.jpg', './images/image4.jpg' ,'./images/image5.jpg' ,'./images/image6.jpg']
+        self.face_image_paths = ['./images/image1.jpg', './images/image1.jpg', './images/image3.jpg', './images/image4.jpg' ,'./images/image5.jpg' ,'./images/image6.jpg']
         if 0 <= index < len(self.face_image_paths): 
             #face
             pixmap_t1 = QPixmap(self.face_image_paths[index-1]) if index != 0 else QPixmap()

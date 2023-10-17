@@ -27,7 +27,10 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         # # 스크롤바 구현
         # self.scrollbar.setMaximum(len(self.face_image_paths) - 1)
         # self.scrollbar.valueChanged.connect(self.changeImage)
-
+        self.line_5.setStyleSheet("background-color: red;")
+        self.line_6.setStyleSheet("background-color: red;")
+        self.line_4.setStyleSheet("background-color: red;")
+        self.line_3.setStyleSheet("background-color: red;")
         # self.loadImage(self.current_image_index)
         #open버튼 클릭 시
         self.face_open_button.clicked.connect(lambda: self.convertToImage('face'))
