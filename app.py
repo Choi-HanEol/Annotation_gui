@@ -4,7 +4,7 @@ import os, glob
 from PySide6.QtWidgets import *
 # from PySide6 import uic
 # from ui_mainwindow import Ui_MainWindow
-from ui_mainwindow import Ui_MainWindow
+from ui_maxsizedown_mainwindow import Ui_MainWindow
 from PySide6.QtGui import QPixmap
 
 from PySide6.QtCore import Qt
@@ -21,72 +21,77 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.initUI('', '')
 
     def initUI(self, face_image_paths, body_image_paths):
+        file_list = ['face', 'body']
         self.face_image_paths = face_image_paths
         self.body_image_paths = body_image_paths
         self.current_image_index = 0    #현재 보고있는 이미지의 인덱스, t번째 이미지
         # # 스크롤바 구현
         # self.scrollbar.setMaximum(len(self.face_image_paths) - 1)
         # self.scrollbar.valueChanged.connect(self.changeImage)
-        self.line_5.setStyleSheet("background-color: red;")
-        self.line_6.setStyleSheet("background-color: red;")
-        self.line_4.setStyleSheet("background-color: red;")
         self.line_3.setStyleSheet("background-color: red;")
+        self.line_11.setStyleSheet("background-color: red;")
+        self.line_6.setStyleSheet("background-color: red;")
+        self.line_12.setStyleSheet("background-color: red;")
         # self.loadImage(self.current_image_index)
         #open버튼 클릭 시
-        self.face_open_button.clicked.connect(lambda: self.convertToImage('face'))
-        self.body_open_button.clicked.connect(lambda: self.convertToImage('body'))
+        # self.face_open_button.clicked.connect(lambda: self.convertToImage('face'))
+        # self.body_open_button.clicked.connect(lambda: self.convertToImage('body'))
+        self.actionOpen.triggered.connect(lambda: self.convertToImage(file_list))
         
 
 
-    def convertToImage(self, faceOrBody): #동영상 열어 이미지로 변환
+    def convertToImage(self, file_list): #동영상 열어 이미지로 변환
         global video_name
-        video_name = QFileDialog.getOpenFileName(self, 'Open File')
-        
-        if os.path.splitext(video_name[0])[1].lower() == '.mp4': #선택한 파일이 동영상일 때
-            cap = cv2.VideoCapture(video_name[0])
-            folder_path = os.path.dirname(video_name[0])+'/'+faceOrBody
-            if not os.path.exists(folder_path):
-                os.makedirs(folder_path)
-                print(f'{folder_path} 폴더가 생성되었습니다.')
-            else:
-                print(f'{folder_path} 폴더는 이미 존재합니다.')
-            # 프레임 수 초기화
-            frame_count = 0
-
-            while True:
-                # 프레임 읽기
-                ret, frame = cap.read()
-                
-                # 동영상 끝에 도달하면 종료
-                if not ret:
-                    break
-                
-                # 이미지 파일로 저장
-                image_filename = f'frame_{frame_count:04d}.jpg'
-                cv2.imwrite(folder_path+'/'+image_filename, frame)
+        for faceOrBody in file_list:
             
-                # 다음 프레임으로 이동
-                frame_count += 1
+            video_name = QFileDialog.getOpenFileName(self, 'Open File')
+            
+            if os.path.splitext(video_name[0])[1].lower() == '.mp4': #선택한 파일이 동영상일 때
+                cap = cv2.VideoCapture(video_name[0])
+                folder_path = os.path.dirname(video_name[0])+'/'+faceOrBody
+                if not os.path.exists(folder_path):
+                    os.makedirs(folder_path)
+                    print(f'{folder_path} 폴더가 생성되었습니다.')
+                
+                # 프레임 수 초기화
+                    frame_count = 0
 
-            if faceOrBody == 'face':
-                self.face_image_paths = glob.glob(os.path.join(folder_path, '*.jpg'))
-            elif faceOrBody == 'body':
-                self.body_image_paths = glob.glob(os.path.join(folder_path, '*.jpg'))
+                    while True:
+                        # 프레임 읽기
+                        ret, frame = cap.read()
+                        
+                        # 동영상 끝에 도달하면 종료
+                        if not ret:
+                            break
+                        
+                        # 이미지 파일로 저장
+                        image_filename = f'frame_{frame_count:04d}.jpg'
+                        cv2.imwrite(folder_path+'/'+image_filename, frame)
+                    
+                        # 다음 프레임으로 이동
+                        frame_count += 1
+                else:
+                    print(f'{folder_path} 폴더는 이미 존재합니다.')
+
+                if faceOrBody == 'face':
+                    self.face_image_paths = glob.glob(os.path.join(folder_path, '*.jpg'))
+                elif faceOrBody == 'body':
+                    self.body_image_paths = glob.glob(os.path.join(folder_path, '*.jpg'))
+                else:
+                    print('file_list 에러')
+                # 동영상 캡처 객체 해제
+                cap.release()
+                cv2.destroyAllWindows()
+            # elif os.path.splitext(video_name[0])[1].lower() == '':
+            #     print('File selection canceled')
             else:
-                print('faceOrBody 에러')
-            # 동영상 캡처 객체 해제
-            cap.release()
-            cv2.destroyAllWindows()
-        # elif os.path.splitext(video_name[0])[1].lower() == '':
-        #     print('File selection canceled')
-        else:
-            if os.path.splitext(video_name[0])[1].lower() != '':
-                msg_box = QMessageBox()
-                msg_box.setIcon(QMessageBox.Information)
-                msg_box.setWindowTitle("알림")
-                msg_box.setText("mp4 파일을 선택해야 합니다.")
-                msg_box.setStandardButtons(QMessageBox.Ok)
-                msg_box.exec()
+                if os.path.splitext(video_name[0])[1].lower() != '':
+                    msg_box = QMessageBox()
+                    msg_box.setIcon(QMessageBox.Information)
+                    msg_box.setWindowTitle("알림")
+                    msg_box.setText("mp4 파일을 선택해야 합니다.")
+                    msg_box.setStandardButtons(QMessageBox.Ok)
+                    msg_box.exec()
         
         # 스크롤바 구현
         self.scrollbar.setMaximum(len(self.face_image_paths) - 1)
@@ -104,27 +109,81 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 self.scrollbar.setValue(self.current_image_index)
 
     def loadImage(self, index):
+        # face_image_paths
         if 0 <= index < len(self.face_image_paths): 
             #face
-            pixmap_t1 = QPixmap(self.face_image_paths[index-1]) if index != 0 else QPixmap()
-            self.t_1_faceimage.setPixmap(pixmap_t1)
-            self.t_1_faceimage.setScaledContents(True)
-            pixmap_t2 = QPixmap(self.face_image_paths[index])
-            self.t_2_faceimage.setPixmap(pixmap_t2)
-            self.t_2_faceimage.setScaledContents(True)
-            pixmap_t3 = QPixmap(self.face_image_paths[index+1]) if index+1 != len(self.face_image_paths) else QPixmap()
+            pixmap_t3 = QPixmap(self.face_image_paths[index])
             self.t_3_faceimage.setPixmap(pixmap_t3)
             self.t_3_faceimage.setScaledContents(True)
+            # print(type(pixmap_t3.width()), pixmap_t3.height())
+            if index > 1:
+                pixmap_t1 = QPixmap(self.face_image_paths[index-2]) 
+            else:
+                pixmap_t1 = QPixmap(int(pixmap_t3.width()), int(pixmap_t3.height()))
+                pixmap_t1.fill(Qt.transparent)            
+            self.t_1_faceimage.setPixmap(pixmap_t1)
+            self.t_1_faceimage.setScaledContents(True)
+
+            if index > 0:
+                pixmap_t2 = QPixmap(self.face_image_paths[index-1]) 
+            else:
+                pixmap_t2 = QPixmap(int(pixmap_t3.width()), int(pixmap_t3.height()))
+                pixmap_t2.fill(Qt.transparent)            
+            self.t_2_faceimage.setPixmap(pixmap_t2)
+            self.t_2_faceimage.setScaledContents(True)
+
+            if index+1 < len(self.face_image_paths):
+                pixmap_t4 = QPixmap(self.face_image_paths[index+1])
+            else:
+                pixmap_t4 = QPixmap(int(pixmap_t3.width()), int(pixmap_t3.height()))
+                pixmap_t4.fill(Qt.transparent)                         
+            self.t_4_faceimage.setPixmap(pixmap_t4)
+            self.t_4_faceimage.setScaledContents(True)
+
+            if index+2 < len(self.face_image_paths):
+                pixmap_t5 = QPixmap(self.face_image_paths[index+2])
+            else:
+                pixmap_t5 = QPixmap(int(pixmap_t3.width()), int(pixmap_t3.height()))
+                pixmap_t5.fill(Qt.transparent)            
+            self.t_5_faceimage.setPixmap(pixmap_t5)
+            self.t_5_faceimage.setScaledContents(True)
+
             #body
-            pixmap_t1 = QPixmap(self.body_image_paths[index-1]) if index != 0 else QPixmap()
-            self.t_1_bodyimage.setPixmap(pixmap_t1)
-            self.t_1_bodyimage.setScaledContents(True)
-            pixmap_t2 = QPixmap(self.body_image_paths[index])
-            self.t_2_bodyimage.setPixmap(pixmap_t2)
-            self.t_2_bodyimage.setScaledContents(True)
-            pixmap_t3 = QPixmap(self.body_image_paths[index+1]) if index+1 != len(self.body_image_paths) else QPixmap()
+            pixmap_t3 = QPixmap(self.body_image_paths[index])
             self.t_3_bodyimage.setPixmap(pixmap_t3)
             self.t_3_bodyimage.setScaledContents(True)
+            # print(type(pixmap_t3.width()), pixmap_t3.height())
+            if index > 1:
+                pixmap_t1 = QPixmap(self.body_image_paths[index-2]) 
+            else:
+                pixmap_t1 = QPixmap(int(pixmap_t3.width()), int(pixmap_t3.height()))
+                pixmap_t1.fill(Qt.transparent)            
+            self.t_1_bodyimage.setPixmap(pixmap_t1)
+            self.t_1_bodyimage.setScaledContents(True)
+
+            if index > 0:
+                pixmap_t2 = QPixmap(self.body_image_paths[index-1]) 
+            else:
+                pixmap_t2 = QPixmap(int(pixmap_t3.width()), int(pixmap_t3.height()))
+                pixmap_t2.fill(Qt.transparent)            
+            self.t_2_bodyimage.setPixmap(pixmap_t2)
+            self.t_2_bodyimage.setScaledContents(True)
+
+            if index+1 < len(self.body_image_paths):
+                pixmap_t4 = QPixmap(self.body_image_paths[index+1])
+            else:
+                pixmap_t4 = QPixmap(int(pixmap_t3.width()), int(pixmap_t3.height()))
+                pixmap_t4.fill(Qt.transparent)                         
+            self.t_4_bodyimage.setPixmap(pixmap_t4)
+            self.t_4_bodyimage.setScaledContents(True)
+
+            if index+2 < len(self.body_image_paths):
+                pixmap_t5 = QPixmap(self.body_image_paths[index+2])
+            else:
+                pixmap_t5 = QPixmap(int(pixmap_t3.width()), int(pixmap_t3.height()))
+                pixmap_t5.fill(Qt.transparent)            
+            self.t_5_bodyimage.setPixmap(pixmap_t5)
+            self.t_5_bodyimage.setScaledContents(True)
             
     
     def changeImage(self, value):
