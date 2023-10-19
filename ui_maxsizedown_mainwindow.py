@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'maxsizedown_mainwindowsHEioS.ui'
+## Form generated from reading UI file 'maxsizedown_mainwindowgRDzQh.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.3
 ##
@@ -29,10 +29,20 @@ class Ui_MainWindow(object):
         font = QFont()
         font.setPointSize(12)
         MainWindow.setFont(font)
-        self.actionOpen = QAction(MainWindow)
-        self.actionOpen.setObjectName(u"actionOpen")
+        self.actionOpenVedioFile = QAction(MainWindow)
+        self.actionOpenVedioFile.setObjectName(u"actionOpenVedioFile")
         self.actionSave = QAction(MainWindow)
         self.actionSave.setObjectName(u"actionSave")
+        self.actionOpenImageFolder = QAction(MainWindow)
+        self.actionOpenImageFolder.setObjectName(u"actionOpenImageFolder")
+        self.actionSearch = QAction(MainWindow)
+        self.actionSearch.setObjectName(u"actionSearch")
+        self.actionSave_As = QAction(MainWindow)
+        self.actionSave_As.setObjectName(u"actionSave_As")
+        self.actionSave_2 = QAction(MainWindow)
+        self.actionSave_2.setObjectName(u"actionSave_2")
+        self.actionSave_As_2 = QAction(MainWindow)
+        self.actionSave_As_2.setObjectName(u"actionSave_As_2")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -248,8 +258,6 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.scrollbar)
         self.scrollbar.setMaximum(0)
 
-
-
         self.line_2 = QFrame(self.centralwidget)
         self.line_2.setObjectName(u"line_2")
         self.line_2.setFrameShape(QFrame.HLine)
@@ -441,14 +449,21 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QRect(0, 0, 1407, 27))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
+        self.menusave = QMenu(self.menubar)
+        self.menusave.setObjectName(u"menusave")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.menuFile.menuAction())
-        self.menuFile.addAction(self.actionOpen)
-        self.menuFile.addAction(self.actionSave)
+        self.menubar.addAction(self.menusave.menuAction())
+        self.menuFile.addAction(self.actionOpenVedioFile)
+        self.menuFile.addAction(self.actionOpenImageFolder)
+        self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionSave_2)
+        self.menuFile.addAction(self.actionSave_As_2)
+        self.menusave.addAction(self.actionSearch)
 
         self.retranslateUi(MainWindow)
 
@@ -457,8 +472,13 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.actionOpen.setText(QCoreApplication.translate("MainWindow", u"Open", None))
+        self.actionOpenVedioFile.setText(QCoreApplication.translate("MainWindow", u"Open Vedio File", None))
         self.actionSave.setText(QCoreApplication.translate("MainWindow", u"Save", None))
+        self.actionOpenImageFolder.setText(QCoreApplication.translate("MainWindow", u"Open Image Folder", None))
+        self.actionSearch.setText(QCoreApplication.translate("MainWindow", u"Search", None))
+        self.actionSave_As.setText(QCoreApplication.translate("MainWindow", u"Save As", None))
+        self.actionSave_2.setText(QCoreApplication.translate("MainWindow", u"Save", None))
+        self.actionSave_As_2.setText(QCoreApplication.translate("MainWindow", u"Save As", None))
         self.t_1_faceimage.setText("")
         self.t_2_faceimage.setText("")
         self.t_3_faceimage.setText(QCoreApplication.translate("MainWindow", u"Open the Vedio File", None))
@@ -480,7 +500,7 @@ class Ui_MainWindow(object):
         self.radioButton_5.setText(QCoreApplication.translate("MainWindow", u"1", None))
         self.radioButton_6.setText(QCoreApplication.translate("MainWindow", u"2", None))
         self.radioButton_7.setText(QCoreApplication.translate("MainWindow", u"3", None))
-        self.AugmentBox.setTitle(QCoreApplication.translate("MainWindow", u"GroupBox", None))
+        self.AugmentBox.setTitle(QCoreApplication.translate("MainWindow", u"Augmentation", None))
         self.None_checkBox.setText(QCoreApplication.translate("MainWindow", u"None", None))
         self.checkBox_5.setText(QCoreApplication.translate("MainWindow", u"CheckBox", None))
         self.checkBox_6.setText(QCoreApplication.translate("MainWindow", u"CheckBox", None))
@@ -492,5 +512,6 @@ class Ui_MainWindow(object):
         self.nextButton.setText(QCoreApplication.translate("MainWindow", u"Next\n"
 "Image", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
+        self.menusave.setTitle(QCoreApplication.translate("MainWindow", u"Edit", None))
     # retranslateUi
 
