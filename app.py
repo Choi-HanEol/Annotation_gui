@@ -26,6 +26,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
     def initUI(self):
         file_list = ['face', 'body']
+        self.face_folderPath = ''
+        self.body_folderPath = ''
         self.folderPath = ''
         self.file_name = None
         self.face_image_paths = ''
@@ -201,19 +203,23 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         for faceOrBody in file_list:
             options = QFileDialog.Options()
             folder_path = QFileDialog.getExistingDirectory(self, f'Open {faceOrBody} Folder' ,options=options)
-            self.folderPath = folder_path  # 부모 디렉터리 계산folder_path
+            self.folderPath = os.path.dirname(folder_path)
             if folder_path:
                 
                 try:
                     # NumPy 배열 불러오기
                     self.current_image_index = 0
                     if faceOrBody == 'face':
+                        self.face_folderPath = folder_path
                         self.face_image_paths = glob.glob(os.path.join(folder_path, '*.jpg'))
                     elif faceOrBody == 'body':
+                        self.body_folderPath = folder_path
                         self.body_image_paths = glob.glob(os.path.join(folder_path, '*.jpg'))
                     else:
                         print('file_list 에러')
                     # 스크롤바 구현
+                    self.annotateList = np.full((len(self.face_image_paths), 2) ,np.nan)
+                    self.annotateList[:, 0] = np.arange(1, len(self.face_image_paths)+1)
                     self.scrollbar.setMaximum(len(self.face_image_paths) - 1)
                     # self.scrollbar.valueChanged.connect(self.changeImage)
                     self.statusbar.showMessage(f'{self.current_image_index+1} / {self.scrollbar.maximum()+1}')
@@ -246,6 +252,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         
 
     def exportToCsv(self):
+        
         try:
             if self.current_image_index < 0:
                 msg_box = QMessageBox()
@@ -274,7 +281,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             msg_box = QMessageBox()
             msg_box.setIcon(QMessageBox.Information)
             msg_box.setWindowTitle("에러")
-            msg_box.setText("해당 csv파일이 열려있습니다. 파일을 닫고 export하세요")
+            print({self.folderPath})
+            msg_box.setText(f"해당 csv파일이 열려있습니다. 파일을 닫고 export하세요")
             msg_box.setStandardButtons(QMessageBox.Ok)
             msg_box.exec()
             
@@ -285,13 +293,13 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             msg_box = QMessageBox()
             msg_box.setIcon(QMessageBox.Information)
             msg_box.setWindowTitle("알림")
-            msg_box.setText("이미지 파일을 먼저 불러오거나 npy 파일을 불러오세요")
+            msg_box.setText("이미지 파일을 먼저 불러오세요")
             msg_box.setStandardButtons(QMessageBox.Ok)
             msg_box.exec()
            
         else:    
 
-            annotate_value = 0
+            annotate_value = None
             if self.radioButton.isChecked():
                 annotate_value = -3
             elif self.radioButton_2.isChecked():
@@ -309,7 +317,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             elif self.radioButton_8.isChecked():
                 annotate_value = None
 
-            self.annotateList[self.current_image_index] = [self.current_image_index+1, annotate_value]
+            self.annotateList[self.current_image_index][1] = annotate_value
         
 
 
@@ -346,8 +354,10 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             if os.path.splitext(video_name[0])[1].lower() == '.mp4': #선택한 파일이 동영상일 때
                 self.current_image_index = 0
                 self.annotateList = np.full((len(self.face_image_paths), 2) ,np.nan)
+                self.annotateList[:, 0] = np.arange(1, len(self.face_image_paths)+1)
                 cap = cv2.VideoCapture(video_name[0])
                 self.folderPath = os.path.dirname(video_name[0])
+                # print(self.folderPath)
                 
                 folder_path = os.path.dirname(video_name[0])+'/'+os.path.splitext(video_name[0])[0].split('/')[-1]+'_'+faceOrBody
                 if not os.path.exists(folder_path):
@@ -375,8 +385,10 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                     print(f'{folder_path} 폴더는 이미 존재합니다.')
 
                 if faceOrBody == 'face':
+                    self.face_folderPath = folder_path
                     self.face_image_paths = glob.glob(os.path.join(folder_path, '*.jpg'))
                 elif faceOrBody == 'body':
+                    self.body_folderPath = folder_path
                     self.body_image_paths = glob.glob(os.path.join(folder_path, '*.jpg'))
                 else:
                     print('file_list 에러')
@@ -584,27 +596,32 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             if reply == QMessageBox.Yes:
                 if self.checkBox_5.isChecked():
                     for face_image_path, body_image_path in zip(self.face_image_paths, self.body_image_paths):
-                        self.augRotate(face_image_path, 'face')
-                        self.augRotate(body_image_path, 'body')
+                        self.augRotate(face_image_path)
+                        self.augRotate(body_image_path)
                 if self.checkBox_6.isChecked():
                     for face_image_path, body_image_path in zip(self.face_image_paths, self.body_image_paths):
-                        self.augContrast(face_image_path, 'face')
-                        self.augContrast(body_image_path, 'body')
+                        self.augContrast(face_image_path)
+                        self.augContrast(body_image_path)
                 if self.checkBox_4.isChecked():
                     for face_image_path, body_image_path in zip(self.face_image_paths, self.body_image_paths):
-                        self.augFlip(face_image_path, 'face')
-                        self.augFlip(body_image_path, 'body')
+                        self.augFlip(face_image_path)
+                        self.augFlip(body_image_path)
 
                 
                 # np.save(self.file_name, self.annotateList)
                 # print(self.folderPath)
-                self.face_image_paths = glob.glob(os.path.join(self.folderPath, '*.jpg'))
-                self.body_image_paths = glob.glob(os.path.join(self.folderPath, '*.jpg'))
+
+                
+                self.face_image_paths = glob.glob(os.path.join(self.face_folderPath, '*.jpg'))
+                self.body_image_paths = glob.glob(os.path.join(self.body_folderPath, '*.jpg'))
                 self.annotateList = np.full((len(self.face_image_paths), 2) ,np.nan)
+                self.annotateList[:, 0] = np.arange(1, len(self.face_image_paths)+1)
+                # np.save(self.file_name, self.annotateList)
                 # self.face_image_paths.append(self.face_image_paths_aug)
                 # self.body_image_paths.append(self.body_image_paths_aug)
                 # self.face_image_paths.sort()
                 # self.body_image_paths.sort()
+                self.current_image_index = 0
                 self.scrollbar.setMaximum(len(self.face_image_paths) - 1)
                 self.statusbar.showMessage(f'{self.current_image_index+1} / {self.scrollbar.maximum()+1}')
                 
@@ -612,6 +629,18 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 # self.statusbar.showMessage(f'{self.current_image_index+1} / {self.scrollbar.maximum()+1}')
                 self.loadImage(self.current_image_index)
 
+                self.group.setExclusive(False)
+                            
+                self.radioButton.setChecked(False)
+                self.radioButton_2.setChecked(False)
+                self.radioButton_3.setChecked(False)
+                self.radioButton_4.setChecked(False)
+                self.radioButton_5.setChecked(False)
+                self.radioButton_6.setChecked(False)
+                self.radioButton_7.setChecked(False)
+                self.radioButton_8.setChecked(False)
+
+                self.group.setExclusive(True)
                 
 
             
