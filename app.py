@@ -618,7 +618,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             
             
 
-    def augRotate(self, image_path, faceORbody):
+    def augRotate(self, image_path):
         image = Image.open(image_path)
         rotations = list(range(-10, 11, 2))  # -10도부터 10도까지 2도씩 회전
         # 이미지를 회전하고 저장
@@ -643,7 +643,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             #     self.body_image_paths_aug.append(output_filename)
             
 
-    def augContrast(self, image_path, faceORbody):
+    def augContrast(self, image_path):
         image = Image.open(image_path)
 
         # 대비 조절 범위 설정
@@ -654,24 +654,24 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             if contrast == 0:
                 continue
             # 대비 조절 변환을 정의
-            contrast_adjust = transforms.ColorJitter(contrast=contrast)
+            contrast_adjust = transforms.functional.adjust_contrast(img=image, contrast_factor=contrast)
             
             # 이미지 대비 조절
-            adjusted_image = contrast_adjust(image)
+            # adjusted_image = contrast_adjust(image)
             
             image_path, _ = os.path.splitext(image_path)
             # 대비 조절 값을 파일명에 추가하여 저장 (예: adjusted_image_-50.jpg, adjusted_image_-40.jpg, ...)
             output_filename = f'{image_path}adjusted_image_{contrast}.jpg'
             
             # 이미지 저장
-            adjusted_image.save(os.path.join(self.folderPath, output_filename))
+            contrast_adjust.save(os.path.join(self.folderPath, output_filename))
 
             # if faceORbody == 'face':
             #     self.face_image_paths_aug.append(output_filename)
             # elif faceORbody == 'body':
             #     self.body_image_paths_aug.append(output_filename)
 
-    def augFlip(self, image_path, faceORbody):
+    def augFlip(self, image_path):
         image = Image.open(image_path)
 
         # Flip 변환 정의
