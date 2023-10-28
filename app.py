@@ -595,12 +595,12 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                         self.augFlip(face_image_path, 'face')
                         self.augFlip(body_image_path, 'body')
 
-                self.annotateList = np.full((len(self.face_image_paths), 2) ,np.nan)
+                
                 # np.save(self.file_name, self.annotateList)
                 # print(self.folderPath)
                 self.face_image_paths = glob.glob(os.path.join(self.folderPath, '*.jpg'))
                 self.body_image_paths = glob.glob(os.path.join(self.folderPath, '*.jpg'))
-                
+                self.annotateList = np.full((len(self.face_image_paths), 2) ,np.nan)
                 # self.face_image_paths.append(self.face_image_paths_aug)
                 # self.body_image_paths.append(self.body_image_paths_aug)
                 # self.face_image_paths.sort()
