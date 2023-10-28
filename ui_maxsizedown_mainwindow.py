@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'maxsizedown_mainwindowgRDzQh.ui'
+## Form generated from reading UI file 'maxsizedown_mainwindowdTPHJh.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.3
 ##
@@ -43,6 +43,8 @@ class Ui_MainWindow(object):
         self.actionSave_2.setObjectName(u"actionSave_2")
         self.actionSave_As_2 = QAction(MainWindow)
         self.actionSave_As_2.setObjectName(u"actionSave_As_2")
+        self.actionOpenNpyFile = QAction(MainWindow)
+        self.actionOpenNpyFile.setObjectName(u"actionOpenNpyFile")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -305,13 +307,18 @@ class Ui_MainWindow(object):
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.AnnotationBox.sizePolicy().hasHeightForWidth())
         self.AnnotationBox.setSizePolicy(sizePolicy2)
-        self.AnnotationBox.setMinimumSize(QSize(0, 0))
-        self.AnnotationBox.setMaximumSize(QSize(450, 80))
+        self.AnnotationBox.setMinimumSize(QSize(600, 0))
+        self.AnnotationBox.setMaximumSize(QSize(16777215, 80))
         self.horizontalLayout_5 = QHBoxLayout(self.AnnotationBox)
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.radioButton_8 = QRadioButton(self.AnnotationBox)
+        self.radioButton_8.setObjectName(u"radioButton_8")
+
+        self.horizontalLayout.addWidget(self.radioButton_8)
+
         self.radioButton = QRadioButton(self.AnnotationBox)
         self.radioButton.setObjectName(u"radioButton")
         self.radioButton.setMaximumSize(QSize(16777215, 16777215))
@@ -377,18 +384,13 @@ class Ui_MainWindow(object):
 
         self.AugmentBox = QGroupBox(self.centralwidget)
         self.AugmentBox.setObjectName(u"AugmentBox")
-        self.AugmentBox.setMinimumSize(QSize(800, 0))
+        self.AugmentBox.setMinimumSize(QSize(300, 0))
         self.AugmentBox.setMaximumSize(QSize(16777215, 80))
         self.horizontalLayout_8 = QHBoxLayout(self.AugmentBox)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.horizontalLayout_7 = QHBoxLayout()
         self.horizontalLayout_7.setSpacing(10)
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.None_checkBox = QCheckBox(self.AugmentBox)
-        self.None_checkBox.setObjectName(u"None_checkBox")
-
-        self.horizontalLayout_7.addWidget(self.None_checkBox)
-
         self.checkBox_5 = QCheckBox(self.AugmentBox)
         self.checkBox_5.setObjectName(u"checkBox_5")
 
@@ -404,31 +406,21 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_7.addWidget(self.checkBox_4)
 
-        self.checkBox_2 = QCheckBox(self.AugmentBox)
-        self.checkBox_2.setObjectName(u"checkBox_2")
-
-        self.horizontalLayout_7.addWidget(self.checkBox_2)
-
-        self.checkBox_7 = QCheckBox(self.AugmentBox)
-        self.checkBox_7.setObjectName(u"checkBox_7")
-
-        self.horizontalLayout_7.addWidget(self.checkBox_7)
-
-        self.checkBox_8 = QCheckBox(self.AugmentBox)
-        self.checkBox_8.setObjectName(u"checkBox_8")
-
-        self.horizontalLayout_7.addWidget(self.checkBox_8)
-
-        self.checkBox = QCheckBox(self.AugmentBox)
-        self.checkBox.setObjectName(u"checkBox")
-
-        self.horizontalLayout_7.addWidget(self.checkBox)
-
 
         self.horizontalLayout_8.addLayout(self.horizontalLayout_7)
 
 
         self.horizontalLayout_6.addWidget(self.AugmentBox)
+
+        self.prevButton_2 = QPushButton(self.centralwidget)
+        self.prevButton_2.setObjectName(u"prevButton_2")
+        sizePolicy1.setHeightForWidth(self.prevButton_2.sizePolicy().hasHeightForWidth())
+        self.prevButton_2.setSizePolicy(sizePolicy1)
+        self.prevButton_2.setMinimumSize(QSize(80, 80))
+        self.prevButton_2.setMaximumSize(QSize(130, 80))
+        self.prevButton_2.setFont(font2)
+
+        self.horizontalLayout_6.addWidget(self.prevButton_2)
 
         self.nextButton = QPushButton(self.centralwidget)
         self.nextButton.setObjectName(u"nextButton")
@@ -460,6 +452,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menusave.menuAction())
         self.menuFile.addAction(self.actionOpenVedioFile)
         self.menuFile.addAction(self.actionOpenImageFolder)
+        self.menuFile.addAction(self.actionOpenNpyFile)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionSave_2)
         self.menuFile.addAction(self.actionSave_As_2)
@@ -475,10 +468,11 @@ class Ui_MainWindow(object):
         self.actionOpenVedioFile.setText(QCoreApplication.translate("MainWindow", u"Open Vedio File", None))
         self.actionSave.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.actionOpenImageFolder.setText(QCoreApplication.translate("MainWindow", u"Open Image Folder", None))
-        self.actionSearch.setText(QCoreApplication.translate("MainWindow", u"Search", None))
+        self.actionSearch.setText(QCoreApplication.translate("MainWindow", u"Search (Ctrl + F)", None))
         self.actionSave_As.setText(QCoreApplication.translate("MainWindow", u"Save As", None))
-        self.actionSave_2.setText(QCoreApplication.translate("MainWindow", u"Save", None))
+        self.actionSave_2.setText(QCoreApplication.translate("MainWindow", u"Save (Ctrl + S)", None))
         self.actionSave_As_2.setText(QCoreApplication.translate("MainWindow", u"Save As", None))
+        self.actionOpenNpyFile.setText(QCoreApplication.translate("MainWindow", u"Open npy File (Ctrl + O)", None))
         self.t_1_faceimage.setText("")
         self.t_2_faceimage.setText("")
         self.t_3_faceimage.setText(QCoreApplication.translate("MainWindow", u"Open the Vedio File", None))
@@ -493,6 +487,7 @@ class Ui_MainWindow(object):
         self.prevButton.setText(QCoreApplication.translate("MainWindow", u"Prev\n"
 "Image", None))
         self.AnnotationBox.setTitle(QCoreApplication.translate("MainWindow", u"Annotation", None))
+        self.radioButton_8.setText(QCoreApplication.translate("MainWindow", u"None", None))
         self.radioButton.setText(QCoreApplication.translate("MainWindow", u"-3", None))
         self.radioButton_2.setText(QCoreApplication.translate("MainWindow", u"-2", None))
         self.radioButton_3.setText(QCoreApplication.translate("MainWindow", u"-1", None))
@@ -501,14 +496,11 @@ class Ui_MainWindow(object):
         self.radioButton_6.setText(QCoreApplication.translate("MainWindow", u"2", None))
         self.radioButton_7.setText(QCoreApplication.translate("MainWindow", u"3", None))
         self.AugmentBox.setTitle(QCoreApplication.translate("MainWindow", u"Augmentation", None))
-        self.None_checkBox.setText(QCoreApplication.translate("MainWindow", u"None", None))
-        self.checkBox_5.setText(QCoreApplication.translate("MainWindow", u"CheckBox", None))
-        self.checkBox_6.setText(QCoreApplication.translate("MainWindow", u"CheckBox", None))
-        self.checkBox_4.setText(QCoreApplication.translate("MainWindow", u"CheckBox", None))
-        self.checkBox_2.setText(QCoreApplication.translate("MainWindow", u"CheckBox", None))
-        self.checkBox_7.setText(QCoreApplication.translate("MainWindow", u"CheckBox", None))
-        self.checkBox_8.setText(QCoreApplication.translate("MainWindow", u"CheckBox", None))
-        self.checkBox.setText(QCoreApplication.translate("MainWindow", u"CheckBox", None))
+        self.checkBox_5.setText(QCoreApplication.translate("MainWindow", u"Rotate", None))
+        self.checkBox_6.setText(QCoreApplication.translate("MainWindow", u"Constrast", None))
+        self.checkBox_4.setText(QCoreApplication.translate("MainWindow", u"Flip", None))
+        self.prevButton_2.setText(QCoreApplication.translate("MainWindow", u"Run\n"
+"Augmentation", None))
         self.nextButton.setText(QCoreApplication.translate("MainWindow", u"Next\n"
 "Image", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))

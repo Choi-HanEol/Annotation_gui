@@ -1,9 +1,7 @@
-import numpy as np
+names = ['Alice', 'Bob', 'Eve', 'Charlie', 'David']
 
-# 비어 있는 NumPy 배열 생성
-empty_array = np.full((2, 2) ,np.nan)
-# 또는
-empty_array = np.empty(0)
+# 리스트를 이름순으로 정렬
+names.sort()
 
-# 배열 크기 확인
-print(empty_array.shape)  # 출력: (0,)
+# 결과 출력
+print(names)
