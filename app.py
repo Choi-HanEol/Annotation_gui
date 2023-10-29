@@ -4,7 +4,6 @@ import os, glob
 import numpy as np
 import pandas as pd
 from PySide6.QtWidgets import *
-import random
 # from PySide6 import uic
 # from ui_mainwindow import Ui_MainWindow
 from ui_maxsizedown_mainwindow import Ui_MainWindow
