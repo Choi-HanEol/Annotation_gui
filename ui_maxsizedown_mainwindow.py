@@ -497,7 +497,7 @@ class Ui_MainWindow(object):
         self.radioButton_7.setText(QCoreApplication.translate("MainWindow", u"3", None))
         self.AugmentBox.setTitle(QCoreApplication.translate("MainWindow", u"Augmentation", None))
         self.checkBox_5.setText(QCoreApplication.translate("MainWindow", u"Rotate", None))
-        self.checkBox_6.setText(QCoreApplication.translate("MainWindow", u"Constrast", None))
+        self.checkBox_6.setText(QCoreApplication.translate("MainWindow", u"Contrast", None))
         self.checkBox_4.setText(QCoreApplication.translate("MainWindow", u"Flip", None))
         self.prevButton_2.setText(QCoreApplication.translate("MainWindow", u"Run\n"
 "Augmentation", None))

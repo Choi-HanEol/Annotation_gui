@@ -4,6 +4,7 @@ import os, glob
 import numpy as np
 import pandas as pd
 from PySide6.QtWidgets import *
+import random
 # from PySide6 import uic
 # from ui_mainwindow import Ui_MainWindow
 from ui_maxsizedown_mainwindow import Ui_MainWindow
@@ -91,14 +92,17 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         # Run Augmetation 클릭
         self.prevButton_2.clicked.connect(self.dataAugmentation)
 
+    def display_message(self, title, message):
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setWindowTitle(title)
+        msg_box.setText(message)
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec()
+
     def run_actionSave_2(self):
         if self.current_image_index < 0:
-            msg_box = QMessageBox()
-            msg_box.setIcon(QMessageBox.Information)
-            msg_box.setWindowTitle("알림")
-            msg_box.setText("파일을 먼저 선택하세요")
-            msg_box.setStandardButtons(QMessageBox.Ok)
-            msg_box.exec()
+            self.display_message("알림", "파일을 먼저 선택하세요")
         else:
             if self.file_name == None:
                 self.run_actionSave_As_2()
@@ -107,18 +111,14 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
     def run_actionSave_As_2(self):   
         if self.current_image_index < 0:
-            msg_box = QMessageBox()
-            msg_box.setIcon(QMessageBox.Information)
-            msg_box.setWindowTitle("알림")
-            msg_box.setText("파일을 먼저 선택하세요")
-            msg_box.setStandardButtons(QMessageBox.Ok)
-            msg_box.exec()
+            self.display_message("알림", "파일을 먼저 선택하세요")
         else:
             options = QFileDialog.Options()
             options |= QFileDialog.ReadOnly
-            self.file_name, _ = QFileDialog.getSaveFileName(self, "NumPy 배열 저장", "", "NumPy 파일 (*.npy)", options=options)
-
-            if self.file_name:
+            file_name, _ = QFileDialog.getSaveFileName(self, "NumPy 배열 저장", "", "NumPy 파일 (*.npy)", options=options)
+            
+            if file_name:
+                self.file_name = file_name
                 # NumPy 배열을 생성하고 저장
                 np.save(self.file_name, self.annotateList)
 
@@ -127,26 +127,14 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         self.file_name, _ = QFileDialog.getOpenFileName(self, "NumPy 배열 불러오기", "", "NumPy 파일 (*.npy)", options=options)
         
         if self.scrollbar.maximum() <= 0:
-            msg_box = QMessageBox()
-            msg_box.setIcon(QMessageBox.Information)
-            msg_box.setWindowTitle("오류")
-            msg_box.setText("이미지를 먼저 불러오세요")
-            msg_box.setStandardButtons(QMessageBox.Ok)
-            msg_box.exec()
+            self.display_message("오류", "이미지를 먼저 불러오세요")
         else:
             if self.file_name:
                 try:
                     # NumPy 배열 불러오기
                     loaded_array = np.load(self.file_name)
                     if len(loaded_array) != self.scrollbar.maximum()+1:
-                        msg_box = QMessageBox()
-                        msg_box.setIcon(QMessageBox.Information)
-                        print(self.scrollbar.maximum()+1)
-                        print(len(self.annotateList))
-                        msg_box.setWindowTitle("오류")
-                        msg_box.setText("불러온 이미지 파일의 개수와 npy의 크기가 일치하지 않습니다. \n다시 시도해주세요.")
-                        msg_box.setStandardButtons(QMessageBox.Ok)
-                        msg_box.exec()
+                        self.display_message("오류", "불러온 이미지 파일의 개수와 npy의 크기가 일치하지 않습니다. \n다시 시도해주세요.")
                     else:
                         self.annotateList = loaded_array
                         
@@ -179,13 +167,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                             self.radioButton_8.setChecked(False)
 
                             self.group.setExclusive(True)
-                except Exception as e:
-                    msg_box = QMessageBox()
-                    msg_box.setIcon(QMessageBox.Information)
-                    msg_box.setWindowTitle("오류")
-                    msg_box.setText("npy파일을 선택하세요")
-                    msg_box.setStandardButtons(QMessageBox.Ok)
-                    msg_box.exec()
+                except Exception as e:                    
+                    self.display_message("오류", "npy파일을 선택하세요")
 
             # if len(self.annotateList) != self.scrollbar.maximum()+1:
             #     msg_box = QMessageBox()
@@ -203,12 +186,14 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         for faceOrBody in file_list:
             options = QFileDialog.Options()
             folder_path = QFileDialog.getExistingDirectory(self, f'Open {faceOrBody} Folder' ,options=options)
-            self.folderPath = os.path.dirname(folder_path)
+            
             if folder_path:
-                
+                self.folderPath = os.path.dirname(folder_path)
+                # print(self.folderPath)
                 try:
                     # NumPy 배열 불러오기
                     self.current_image_index = 0
+                    self.scrollbar.setValue(0)  # 스크롤바를 0으로 설정
                     if faceOrBody == 'face':
                         self.face_folderPath = folder_path
                         self.face_image_paths = glob.glob(os.path.join(folder_path, '*.jpg'))
@@ -226,12 +211,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                     # self.loadImage(self.current_image_index)
 
                 except Exception as e:
-                    msg_box = QMessageBox()
-                    msg_box.setIcon(QMessageBox.Information)
-                    msg_box.setWindowTitle("오류")
-                    msg_box.setText("이미지 폴더를 선택하세요")
-                    msg_box.setStandardButtons(QMessageBox.Ok)
-                    msg_box.exec()
+                    self.display_message("오류", "이미지 폴더를 선택하세요")
                 
         # 스크롤바 구현
         # self.scrollbar.setMaximum(len(self.face_image_paths) - 1)
@@ -255,47 +235,26 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         
         try:
             if self.current_image_index < 0:
-                msg_box = QMessageBox()
-                msg_box.setIcon(QMessageBox.Information)
-                msg_box.setWindowTitle("알림")
-                msg_box.setText("파일을 먼저 선택하세요")
-                msg_box.setStandardButtons(QMessageBox.Ok)
-                msg_box.exec()
+                self.display_message("알림", "파일을 먼저 선택하세요")
             else:
                 reply = QMessageBox.question(self, '알림', '현재까지 한 작업을 csv로 저장하시겠습니까?\nnpy파일 또한 같이 저장됩니다.',
                                             QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
                 if reply == QMessageBox.Yes:
                     if np.all(np.isnan(self.annotateList)):
-                        msg_box = QMessageBox()
-                        msg_box.setIcon(QMessageBox.Information)
-                        msg_box.setWindowTitle("알림")
-                        msg_box.setText("Annotation이 진행되지 않았습니다.")
-                        msg_box.setStandardButtons(QMessageBox.Ok)
-                        msg_box.exec()
+                        self.display_message("알림", "Annotation이 진행되지 않았습니다.")
                     else:
                         csv_df = pd.DataFrame(self.annotateList, columns=['Frame Number', 'Level Value'])
                         csv_df.to_csv(f"{self.folderPath}/result.csv", index=False)
                         self.run_actionSave_2()
         except PermissionError:
-            msg_box = QMessageBox()
-            msg_box.setIcon(QMessageBox.Information)
-            msg_box.setWindowTitle("에러")
-            print({self.folderPath})
-            msg_box.setText(f"해당 csv파일이 열려있습니다. 파일을 닫고 export하세요")
-            msg_box.setStandardButtons(QMessageBox.Ok)
-            msg_box.exec()
+            self.display_message("에러", "해당 csv파일이 열려있습니다. 파일을 닫고 export하세요")
             
     
 
     def annotateData(self):
         if len(self.annotateList) <= 0:
-            msg_box = QMessageBox()
-            msg_box.setIcon(QMessageBox.Information)
-            msg_box.setWindowTitle("알림")
-            msg_box.setText("이미지 파일을 먼저 불러오세요")
-            msg_box.setStandardButtons(QMessageBox.Ok)
-            msg_box.exec()
+            self.display_message("알림", "이미지 파일을 먼저 불러오세요")
            
         else:    
 
@@ -323,12 +282,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
     def show_search_dialog(self):
         if self.current_image_index < 0:
-            msg_box = QMessageBox()
-            msg_box.setIcon(QMessageBox.Information)
-            msg_box.setWindowTitle("알림")
-            msg_box.setText("파일을 먼저 선택하세요")
-            msg_box.setStandardButtons(QMessageBox.Ok)
-            msg_box.exec()
+            self.display_message("알림", "파일을 먼저 선택하세요")
         else:
             text, ok = QInputDialog.getText(self, '검색', f'찾으실 이미지를 입력하세요 (1~{self.scrollbar.maximum()+1})')
             
@@ -336,12 +290,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 self.changeImage(int(text)-1)
                 self.scrollbar.setValue(self.current_image_index)
             elif (int(text)<=0 and int(text)>self.scrollbar.maximum()+1): 
-                msg_box = QMessageBox()
-                msg_box.setIcon(QMessageBox.Information)
-                msg_box.setWindowTitle("알림")
-                msg_box.setText(f"범위를 벗어난 인덱스\n범위: (1~{self.scrollbar.maximum()+1})")
-                msg_box.setStandardButtons(QMessageBox.Ok)
-                msg_box.exec()
+                self.display_message("알림", f"범위를 벗어난 인덱스\n범위: (1~{self.scrollbar.maximum()+1})")
             self.statusbar.showMessage(f'{self.current_image_index+1} / {self.scrollbar.maximum()+1}')
 
 
@@ -353,11 +302,12 @@ class WindowClass(QMainWindow, Ui_MainWindow):
             
             if os.path.splitext(video_name[0])[1].lower() == '.mp4': #선택한 파일이 동영상일 때
                 self.current_image_index = 0
+                self.scrollbar.setValue(0)
                 self.annotateList = np.full((len(self.face_image_paths), 2) ,np.nan)
                 self.annotateList[:, 0] = np.arange(1, len(self.face_image_paths)+1)
                 cap = cv2.VideoCapture(video_name[0])
                 self.folderPath = os.path.dirname(video_name[0])
-                # print(self.folderPath)
+                print(self.folderPath)
                 
                 folder_path = os.path.dirname(video_name[0])+'/'+os.path.splitext(video_name[0])[0].split('/')[-1]+'_'+faceOrBody
                 if not os.path.exists(folder_path):
@@ -403,18 +353,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 
             else:
                 if os.path.splitext(video_name[0])[1].lower() != '':
-                    msg_box = QMessageBox()
-                    msg_box.setIcon(QMessageBox.Information)
-                    msg_box.setWindowTitle("알림")
-                    msg_box.setText("mp4 파일을 선택해야 합니다.")
-                    msg_box.setStandardButtons(QMessageBox.Ok)
-                    msg_box.exec()
-        msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
-        msg_box.setWindowTitle("알림")
-        msg_box.setText("작업 도중에 Data Augmentation을 진행하게 되면 작업 내용이 초기화됩니다.\nData Augmentation 필요시 먼저 진행하세요.")
-        msg_box.setStandardButtons(QMessageBox.Ok)
-        msg_box.exec()
+                    self.display_message("알림", "mp4 파일을 선택해야 합니다.")
+        self.display_message("알림", "작업 도중에 Data Augmentation을 진행하게 되면 작업 내용이 초기화됩니다.\nData Augmentation 필요시 먼저 진행하세요.")
         # self.scrollbar.setMaximum(len(self.face_image_paths) - 1)
         self.scrollbar.valueChanged.connect(self.changeImage)
         # self.statusbar.showMessage(f'{self.current_image_index+1} / {self.scrollbar.maximum()+1}')
@@ -423,12 +363,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         
 
         if len(self.face_image_paths) != len(self.body_image_paths):
-            msg_box = QMessageBox()
-            msg_box.setIcon(QMessageBox.Information)
-            msg_box.setWindowTitle("오류")
-            msg_box.setText("face 이미지 개수와 body 이미지 개수가 일치하지 않습니다. \n다시 시도해주세요.")
-            msg_box.setStandardButtons(QMessageBox.Ok)
-            msg_box.exec()
+            self.display_message("오류", "face 이미지 개수와 body 이미지 개수가 일치하지 않습니다. \n다시 시도해주세요.")
             # sys.exit()
 
         
@@ -581,17 +516,13 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
     def dataAugmentation(self):
         if self.current_image_index < 0:
-            msg_box = QMessageBox()
-            msg_box.setIcon(QMessageBox.Information)
-            msg_box.setWindowTitle("알림")
-            msg_box.setText("이미지를 먼저 불러오세요")
-            msg_box.setStandardButtons(QMessageBox.Ok)
-            msg_box.exec()
+            self.display_message("알림", "이미지를 먼저 불러오세요")
         else:
             # self.face_image_paths_aug = ''
             # self.body_image_paths_aug = ''
             reply = QMessageBox.question(self, '알림', 'Data Augmentation을 실행하시겠습니까?\n현재까지 진행한 Annotation이 초기화됩니다.',
                                             QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            
             
             if reply == QMessageBox.Yes:
                 if self.checkBox_5.isChecked():
@@ -614,6 +545,8 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 
                 self.face_image_paths = glob.glob(os.path.join(self.face_folderPath, '*.jpg'))
                 self.body_image_paths = glob.glob(os.path.join(self.body_folderPath, '*.jpg'))
+                # self.face_image_paths.sort()
+                # self.body_image_paths.sort()
                 self.annotateList = np.full((len(self.face_image_paths), 2) ,np.nan)
                 self.annotateList[:, 0] = np.arange(1, len(self.face_image_paths)+1)
                 # np.save(self.file_name, self.annotateList)
@@ -622,6 +555,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
                 # self.face_image_paths.sort()
                 # self.body_image_paths.sort()
                 self.current_image_index = 0
+                self.scrollbar.setValue(0)
                 self.scrollbar.setMaximum(len(self.face_image_paths) - 1)
                 self.statusbar.showMessage(f'{self.current_image_index+1} / {self.scrollbar.maximum()+1}')
                 
@@ -678,6 +612,7 @@ class WindowClass(QMainWindow, Ui_MainWindow):
         # 대비 조절 범위 설정
         contrast_range = list(range(-50, 51, 10))  # -50부터 50까지 10씩 증가
 
+
         # 이미지를 대비 조절하고 저장
         for contrast in contrast_range:
             if contrast == 0:
@@ -705,9 +640,9 @@ class WindowClass(QMainWindow, Ui_MainWindow):
 
         # Flip 변환 정의
         flip_transforms = [
-            transforms.RandomVerticalFlip(),  # 상하 뒤집기
-            transforms.RandomHorizontalFlip(),  # 좌우 뒤집기
-            transforms.Compose([transforms.RandomVerticalFlip(), transforms.RandomHorizontalFlip()])  # 상하좌우 뒤집기
+            transforms.RandomVerticalFlip(p=1.0),  # 상하 뒤집기
+            transforms.RandomHorizontalFlip(p=1.0),  # 좌우 뒤집기
+            transforms.Compose([transforms.RandomVerticalFlip(p=1.0), transforms.RandomHorizontalFlip(p=1.0)])  # 상하좌우 뒤집기
         ]
 
         # Flip 방향에 따라 이미지를 뒤집고 저장
