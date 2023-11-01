@@ -6,7 +6,7 @@ import pandas as pd
 from PySide6.QtWidgets import *
 # from PySide6 import uic
 # from ui_mainwindow import Ui_MainWindow
-from ui_maxsizedown_mainwindow import Ui_MainWindow
+from ui_mainwindow import Ui_MainWindow
 from PySide6.QtGui import QPixmap
 
 from PySide6.QtCore import Qt
